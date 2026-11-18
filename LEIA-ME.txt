@@ -1,20 +1,24 @@
-MEU CONTROLE DIÁRIO — versão inicial 1.0
+MEU CONTROLE DIÁRIO — PWA corrigido
 
-Conteúdo:
-- index.html: aplicativo funcional
-- manifest.webmanifest e sw.js: suporte PWA/offline quando servido por HTTPS
+Arquivos:
+- index.html
+- manifest.webmanifest (com ícones, scope, start_url e display standalone)
+- sw.js (cache offline e atualização do cache)
+- icon-192.png
+- icon-512.png
 
-IMPORTANTE SOBRE INSTALAÇÃO NO ANDROID:
-Para instalar como aplicativo PWA e habilitar cache offline, os arquivos precisam estar em um endereço HTTPS.
-1. Extraia o ZIP.
-2. Publique a pasta em um serviço de hospedagem estática HTTPS (por exemplo, GitHub Pages).
-3. Abra o endereço no Chrome do Android.
-4. Menu ⋮ > "Instalar app" ou "Adicionar à tela inicial".
+ATUALIZAÇÃO NO GITHUB PAGES:
+1. Extraia este ZIP.
+2. No repositório https://github.com/sirilol/meu-controle-diario, abra Add file > Upload files.
+3. Envie e substitua os arquivos existentes: index.html, manifest.webmanifest e sw.js.
+4. Envie também os dois arquivos novos icon-192.png e icon-512.png.
+5. Faça Commit changes na branch main e aguarde o GitHub Pages publicar.
 
-Também é possível abrir index.html em um navegador para testar, mas a instalação PWA e o service worker dependem de HTTPS/localhost.
+NO ANDROID:
+1. No Chrome, abra o site.
+2. Recarregue a página. Se continuar igual, abra em uma aba anônima para testar ou limpe os dados do site.
+3. Abra o menu ⋮ e procure Instalar app.
+4. Se a opção ainda não aparecer, feche e reabra o Chrome e aguarde alguns minutos após a publicação.
 
-PRIVACIDADE E BACKUP:
-Os registros são salvos no armazenamento local do navegador. Não há conta, servidor ou sincronização. Exporte backups em Configurações e guarde o arquivo em local seguro. Limpar os dados do navegador pode apagar os registros.
-
-METAS:
-A meta de água inicia em 2.750 ml. Calorias e macronutrientes ficam sem meta pré-definida para que sejam configurados com orientação apropriada. Ajuste tudo em Configurações.
+NOTA:
+Não consegui inspecionar a resposta HTTP do seu GitHub Pages diretamente neste ambiente. A correção foi feita com base nos arquivos da primeira versão que gerei: o manifesto anterior não declarava os ícones 192x192 e 512x512, o que pode impedir a oferta de instalação pelo Chrome.
