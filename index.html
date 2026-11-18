@@ -144,6 +144,17 @@ function clearToday(){if(confirm('Apagar todas as refeições e registros de ág
 $('foodDate').value=today();$('weightDate').value=today();
 Object.entries({goalKcal:'goalKcal',goalWater:'goalWater',goalP:'goalP',goalC:'goalC',goalF:'goalF',goalWeightInput:'goalWeight'}).forEach(([id,k])=>$(id).value=db.settings[k]||'');
 render();
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./sw.js', {
+        scope: './'
+      });
+      console.log('Service Worker registrado:', registration.scope);
+    } catch (error) {
+      console.error('Erro ao registrar Service Worker:', error);
+    }
+  });
+}
 </script>
 </body></html>
