@@ -1,0 +1,9 @@
+{
+  "name": "Meu Controle Diário",
+  "short_name": "Meu Controle",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#14231f",
+  "description": "Controle pessoal de alimentação, hidratação e evolução corporal."
+}

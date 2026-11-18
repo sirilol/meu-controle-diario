@@ -1,0 +1,20 @@
+MEU CONTROLE DIÁRIO — versão inicial 1.0
+
+Conteúdo:
+- index.html: aplicativo funcional
+- manifest.webmanifest e sw.js: suporte PWA/offline quando servido por HTTPS
+
+IMPORTANTE SOBRE INSTALAÇÃO NO ANDROID:
+Para instalar como aplicativo PWA e habilitar cache offline, os arquivos precisam estar em um endereço HTTPS.
+1. Extraia o ZIP.
+2. Publique a pasta em um serviço de hospedagem estática HTTPS (por exemplo, GitHub Pages).
+3. Abra o endereço no Chrome do Android.
+4. Menu ⋮ > "Instalar app" ou "Adicionar à tela inicial".
+
+Também é possível abrir index.html em um navegador para testar, mas a instalação PWA e o service worker dependem de HTTPS/localhost.
+
+PRIVACIDADE E BACKUP:
+Os registros são salvos no armazenamento local do navegador. Não há conta, servidor ou sincronização. Exporte backups em Configurações e guarde o arquivo em local seguro. Limpar os dados do navegador pode apagar os registros.
+
+METAS:
+A meta de água inicia em 2.750 ml. Calorias e macronutrientes ficam sem meta pré-definida para que sejam configurados com orientação apropriada. Ajuste tudo em Configurações.

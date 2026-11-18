@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14231f">
+<title>Meu Controle Diário</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#182520;--muted:#718078;--line:#e3ebe6;--green:#197a55;--green2:#e7f4ed;--blue:#287fbd;--blue2:#e8f3fb;--orange:#d58a27;--red:#c64e4e;--shadow:0 8px 28px #1c3c2b0d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:90px}
+header{background:#14231f;color:white;padding:22px 18px 18px;border-radius:0 0 22px 22px}
+.headrow{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:800;font-size:20px;letter-spacing:-.4px}.date{font-size:12px;color:#c4d5cc;margin-top:5px}
+main{max-width:760px;margin:auto;padding:16px}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:0 auto 16px;max-width:760px;padding:0 12px}
+.tab{border:0;background:transparent;color:#63736b;padding:10px 2px;border-radius:12px;font-size:11px;font-weight:700}.tab.active{background:white;color:var(--green);box-shadow:var(--shadow)}.tab span{display:block;font-size:18px;margin-bottom:3px}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:var(--shadow);margin-bottom:12px}.card h3{font-size:14px;margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.big{font-size:27px;font-weight:800;letter-spacing:-1px}.unit{font-size:12px;color:var(--muted);font-weight:600}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.bar{height:8px;background:#edf1ee;border-radius:20px;overflow:hidden;margin-top:10px}.fill{height:100%;border-radius:20px;background:var(--green);width:0}.blue{background:var(--blue)}.orange{background:var(--orange)}
+button{cursor:pointer;font:inherit}.primary,.secondary,.danger{border:0;border-radius:11px;padding:11px 14px;font-weight:700}.primary{background:var(--green);color:white}.secondary{background:var(--green2);color:var(--green)}.danger{background:#fff0f0;color:var(--red)}.quick{display:flex;gap:7px;flex-wrap:wrap}.quick button{flex:1;min-width:70px;padding:10px 5px;border:1px solid #d7e9df;border-radius:10px;background:#f4fbf7;color:var(--green);font-weight:700}
+label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:10px 0 5px}input,select{width:100%;padding:11px 12px;border:1px solid #dce5df;border-radius:10px;background:white;color:var(--ink);font:inherit;min-width:0}input:focus,select:focus{outline:2px solid #b9ddc9;border-color:var(--green)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.formgrid .wide{grid-column:1/-1}.list{display:flex;flex-direction:column;gap:8px}.item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0}.item strong{display:block;font-size:13px}.item small{color:var(--muted)}.pill{background:#f0f5f1;border-radius:99px;padding:5px 8px;font-size:11px;color:#53645a;white-space:nowrap}.macro{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.macrobox{background:#f7faf8;border-radius:12px;padding:10px}.macrobox b{font-size:18px;display:block}.macrobox span{font-size:11px;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:20px 8px;font-size:13px}
+nav.bottom{position:fixed;bottom:0;left:0;right:0;background:#ffffffed;border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;backdrop-filter:blur(12px)}
+footer{max-width:760px;width:100%;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+h2{font-size:20px;margin:4px 0 14px;letter-spacing:-.4px}.hint{background:#fff8e9;border:1px solid #f3e3bf;border-radius:12px;padding:11px;font-size:12px;color:#785a22;margin-bottom:12px}
+@media(min-width:600px){main{padding:22px}.tabs{gap:8px}.tab{font-size:12px}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="headrow"><div><div class="brand">Meu Controle Diário</div><div class="date" id="today"></div></div><div style="font-size:26px">🌿</div></div></header>
+<div class="tabs">
+<button class="tab active" data-page="home"><span>⌂</span>Início</button>
+<button class="tab" data-page="food"><span>🍽️</span>Comida</button>
+<button class="tab" data-page="water"><span>💧</span>Água</button>
+<button class="tab" data-page="progress"><span>📈</span>Evolução</button>
+<button class="tab" data-page="settings"><span>⚙️</span>Ajustes</button>
+</div>
+<main>
+<section class="page active" id="home">
+<h2>Resumo de hoje</h2>
+<div class="grid">
+<div class="card"><div class="row"><span class="muted small">Energia consumida</span><span>🔥</span></div><div class="big" id="homeKcal">0 <span class="unit">kcal</span></div><div class="small muted" id="kcalGoalText">Meta não definida</div><div class="bar"><div class="fill" id="kcalBar"></div></div></div>
+<div class="card"><div class="row"><span class="muted small">Água consumida</span><span>💧</span></div><div class="big" id="homeWater">0 <span class="unit">ml</span></div><div class="small muted" id="waterGoalText">Meta: 2.750 ml</div><div class="bar"><div class="fill blue" id="waterBar"></div></div></div>
+</div>
+<div class="card"><h3>Macronutrientes</h3><div class="macro">
+<div class="macrobox"><b id="homeP">0 g</b><span>Proteínas</span></div><div class="macrobox"><b id="homeC">0 g</b><span>Carboidratos</span></div><div class="macrobox"><b id="homeF">0 g</b><span>Gorduras</span></div>
+</div><div class="small muted" style="margin-top:10px" id="macroGoals"></div></div>
+<div class="card"><div class="row"><h3 style="margin:0">Refeições de hoje</h3><button class="secondary" onclick="showPage('food')">+ Adicionar</button></div><div id="homeMeals" class="list" style="margin-top:8px"></div></div>
+<div class="card"><div class="row"><h3 style="margin:0">Água — atalhos</h3><button class="secondary" onclick="showPage('water')">Ver detalhes</button></div><div class="quick" style="margin-top:12px"><button onclick="addWater(200)">+200 ml</button><button onclick="addWater(300)">+300 ml</button><button onclick="addWater(500)">+500 ml</button></div></div>
+</section>
+
+<section class="page" id="food">
+<h2>Registrar alimentação</h2>
+<div class="card">
+<h3>Adicionar alimento ou refeição</h3>
+<div class="formgrid">
+<div class="wide"><label>Nome do alimento / refeição</label><input id="foodName" placeholder="Ex.: arroz branco, frango grelhado"></div>
+<div><label>Refeição</label><select id="mealType"><option>Almoço</option><option>Jantar</option><option>Café da manhã</option><option>Lanche</option><option>Ceia</option></select></div>
+<div><label>Quantidade (g ou ml)</label><input id="foodQty" type="number" min="0" step="1" placeholder="150"></div>
+<div><label>Calorias (kcal)</label><input id="foodKcal" type="number" min="0" step="0.1" placeholder="Ex.: 303"></div>
+<div><label>Proteínas (g)</label><input id="foodP" type="number" min="0" step="0.1" placeholder="0"></div>
+<div><label>Carboidratos (g)</label><input id="foodC" type="number" min="0" step="0.1" placeholder="0"></div>
+<div><label>Gorduras (g)</label><input id="foodF" type="number" min="0" step="0.1" placeholder="0"></div>
+<div><label>Data</label><input id="foodDate" type="date"></div>
+</div>
+<button class="primary" style="width:100%;margin-top:14px" onclick="saveFood()">Salvar alimento</button>
+</div>
+<div class="card"><div class="row"><h3 style="margin:0">Alimentos cadastrados</h3><span class="pill">Favoritos</span></div><div id="favorites" class="list" style="margin-top:8px"></div></div>
+<div class="card"><h3>Histórico de refeições</h3><div id="foodHistory" class="list"></div></div>
+</section>
+
+<section class="page" id="water">
+<h2>Hidratação</h2>
+<div class="card"><div class="row"><div><div class="muted small">Total registrado hoje</div><div class="big" id="waterTotal">0 ml</div></div><div style="font-size:34px">💧</div></div><div class="bar"><div class="fill blue" id="waterDetailBar"></div></div><div class="small muted" id="waterPercent" style="margin-top:7px"></div></div>
+<div class="card"><h3>Adicionar água</h3><div class="quick"><button onclick="addWater(150)">+150 ml</button><button onclick="addWater(200)">+200 ml</button><button onclick="addWater(300)">+300 ml</button><button onclick="addWater(500)">+500 ml</button></div><label>Outra quantidade (ml)</label><div class="row"><input id="customWater" type="number" min="1" placeholder="Ex.: 250"><button class="primary" onclick="addCustomWater()">Adicionar</button></div></div>
+<div class="card"><h3>Registros de hoje</h3><div id="waterHistory" class="list"></div></div>
+</section>
+
+<section class="page" id="progress">
+<h2>Evolução corporal</h2>
+<div class="card"><h3>Registrar peso</h3><div class="formgrid"><div><label>Peso (kg)</label><input id="weightValue" type="number" step="0.1" placeholder="106"></div><div><label>Data</label><input id="weightDate" type="date"></div></div><button class="primary" style="width:100%;margin-top:12px" onclick="saveWeight()">Salvar peso</button></div>
+<div class="grid"><div class="card"><span class="muted small">Peso mais recente</span><div class="big" id="latestWeight">—</div></div><div class="card"><span class="muted small">Meta de peso</span><div class="big" id="goalWeight">Abaixo de 100</div></div></div>
+<div class="card"><h3>Histórico de peso</h3><div id="weightHistory" class="list"></div></div>
+<div class="hint">O peso pode variar por hidratação, refeições e outros fatores. Observe a tendência ao longo das semanas, não apenas um dia isolado.</div>
+</section>
+
+<section class="page" id="settings">
+<h2>Metas e preferências</h2>
+<div class="card"><h3>Metas diárias</h3><div class="formgrid">
+<div><label>Calorias (kcal)</label><input id="goalKcal" type="number" min="0"></div>
+<div><label>Água (ml)</label><input id="goalWater" type="number" min="0"></div>
+<div><label>Proteínas (g)</label><input id="goalP" type="number" min="0"></div>
+<div><label>Carboidratos (g)</label><input id="goalC" type="number" min="0"></div>
+<div><label>Gorduras (g)</label><input id="goalF" type="number" min="0"></div>
+<div><label>Meta de peso (kg)</label><input id="goalWeightInput" type="number" step="0.1" min="0"></div>
+</div><button class="primary" style="width:100%;margin-top:14px" onclick="saveSettings()">Salvar metas</button></div>
+<div class="card"><h3>Backup dos seus dados</h3><p class="small muted">Exporte um arquivo de backup para guardar seus registros. Para restaurar, selecione um backup criado por este aplicativo.</p><div class="quick"><button class="secondary" onclick="exportData()">Exportar backup</button><button class="secondary" onclick="document.getElementById('importFile').click()">Importar backup</button></div><input id="importFile" type="file" accept="application/json" style="display:none" onchange="importData(event)"></div>
+<div class="hint"><b>Privacidade:</b> os registros ficam armazenados neste navegador e neste aparelho. Limpar os dados do navegador pode apagá-los; faça backups regularmente. Este app não substitui orientação médica ou nutricional.</div>
+<div class="card"><button class="danger" style="width:100%" onclick="clearToday()">Apagar registros de hoje</button></div>
+</section>
+</main>
+<nav class="bottom"><footer><span>Seus dados ficam neste aparelho</span><span>Meu Controle Diário • v1.0</span></footer></nav>
+<script>
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toLocaleDateString('en-CA');
+const defaults={goalKcal:0,goalWater:2750,goalP:0,goalC:0,goalF:0,goalWeight:99.9};
+let db=JSON.parse(localStorage.getItem('mcd_db')||'null')||{settings:defaults,foods:[],water:[],weights:[],favorites:[]};
+db.settings={...defaults,...db.settings};
+function persist(){localStorage.setItem('mcd_db',JSON.stringify(db));render()}
+function num(id){return Number($(id).value)||0}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.page===p));window.scrollTo(0,0)}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function addWater(ml){db.water.push({id:Date.now()+Math.random(),date:today(),ml,time:new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})});persist()}
+function addCustomWater(){let v=num('customWater');if(v>0){addWater(v);$('customWater').value=''}}
+function saveFood(){let name=$('foodName').value.trim(),qty=num('foodQty'),kcal=num('foodKcal');if(!name||qty<=0||kcal<0){alert('Informe o alimento, a quantidade e as calorias.');return}
+let f={id:Date.now()+Math.random(),name,type:$('mealType').value,qty,kcal,p:num('foodP'),c:num('foodC'),fat:num('foodF'),date:$('foodDate').value||today()};
+db.foods.push(f);if(!db.favorites.some(x=>x.name.toLowerCase()===name.toLowerCase()))db.favorites.push({name,kcal, p:f.p,c:f.c,fat:f.fat,qty});['foodName','foodQty','foodKcal','foodP','foodC','foodF'].forEach(id=>$(id).value='');persist()}
+function saveWeight(){let v=num('weightValue');if(v<=0){alert('Informe um peso válido.');return}db.weights.push({id:Date.now(),kg:v,date:$('weightDate').value||today()});persist();$('weightValue').value=''}
+function saveSettings(){['goalKcal','goalWater','goalP','goalC','goalF','goalWeightInput'].forEach(id=>{let k=id==='goalWeightInput'?'goalWeight':id;db.settings[k]=num(id)});persist();alert('Metas salvas!')}
+function fmt(v){return Math.round(v*10)/10}
+function render(){
+let d=today(),foods=db.foods.filter(x=>x.date===d),water=db.water.filter(x=>x.date===d),sum=(a,k)=>a.reduce((s,x)=>s+(Number(x[k])||0),0);
+let kcal=sum(foods,'kcal'),p=sum(foods,'p'),c=sum(foods,'c'),fat=sum(foods,'fat'),ml=sum(water,'ml'),s=db.settings;
+$('today').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+$('homeKcal').innerHTML=`${fmt(kcal)} <span class="unit">kcal</span>`;$('homeWater').innerHTML=`${fmt(ml)} <span class="unit">ml</span>`;
+$('kcalGoalText').textContent=s.goalKcal?`Meta: ${s.goalKcal} kcal`:'Defina sua meta de calorias nas configurações';$('waterGoalText').textContent=`Meta: ${s.goalWater.toLocaleString('pt-BR')} ml`;
+$('kcalBar').style.width=(s.goalKcal?Math.min(100,kcal/s.goalKcal*100):0)+'%';$('waterBar').style.width=Math.min(100,ml/(s.goalWater||2750)*100)+'%';
+$('homeP').textContent=fmt(p)+' g';$('homeC').textContent=fmt(c)+' g';$('homeF').textContent=fmt(fat)+' g';
+$('macroGoals').textContent=`Metas: ${s.goalP||'—'} g proteína • ${s.goalC||'—'} g carboidratos • ${s.goalF||'—'} g gorduras`;
+$('homeMeals').innerHTML=foods.length?foods.slice().reverse().map(x=>`<div class="item"><div><strong>${esc(x.name)}</strong><small>${esc(x.type)} • ${x.qty} g/ml</small></div><span class="pill">${fmt(x.kcal)} kcal</span></div>`).join(''):'<div class="empty">Nenhuma refeição registrada hoje.</div>';
+$('waterTotal').textContent=ml.toLocaleString('pt-BR')+' ml';$('waterDetailBar').style.width=Math.min(100,ml/(s.goalWater||2750)*100)+'%';$('waterPercent').textContent=`${Math.round(ml/(s.goalWater||2750)*100)}% da meta diária`;
+$('waterHistory').innerHTML=water.length?water.slice().reverse().map(x=>`<div class="item"><div><strong>${x.ml} ml</strong><small>${x.time||''}</small></div><button class="danger" onclick="del('water',${x.id})">Excluir</button></div>`).join(''):'<div class="empty">Nenhum registro de água hoje.</div>';
+$('foodHistory').innerHTML=db.foods.length?db.foods.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30).reverse().map(x=>`<div class="item"><div><strong>${esc(x.name)}</strong><small>${new Date(x.date+'T12:00:00').toLocaleDateString('pt-BR')} • ${esc(x.type)} • ${x.qty} g/ml</small></div><div style="text-align:right"><span class="pill">${fmt(x.kcal)} kcal</span><button class="danger" style="display:block;margin-top:5px" onclick="del('foods',${x.id})">Excluir</button></div></div>`).join(''):'<div class="empty">Seu histórico aparecerá aqui.</div>';
+$('favorites').innerHTML=db.favorites.length?db.favorites.map((x,i)=>`<div class="item"><div><strong>${esc(x.name)}</strong><small>Porção cadastrada: ${x.qty||100} g/ml • ${fmt(x.kcal)} kcal</small></div><button class="secondary" onclick="useFavorite(${i})">Usar</button></div>`).join(''):'<div class="empty">Ao cadastrar alimentos, eles aparecem aqui para reutilização.</div>';
+let w=db.weights.slice().sort((a,b)=>b.date.localeCompare(a.date));$('latestWeight').textContent=w.length?fmt(w[0].kg)+' kg':'—';$('goalWeight').textContent=s.goalWeight+' kg';
+$('weightHistory').innerHTML=w.length?w.map(x=>`<div class="item"><div><strong>${fmt(x.kg)} kg</strong><small>${new Date(x.date+'T12:00:00').toLocaleDateString('pt-BR')}</small></div><button class="danger" onclick="del('weights',${x.id})">Excluir</button></div>`).join(''):'<div class="empty">Registre seu primeiro peso.</div>';
+}
+function useFavorite(i){let f=db.favorites[i];$('foodName').value=f.name;$('foodQty').value=f.qty||100;$('foodKcal').value=f.kcal;$('foodP').value=f.p||0;$('foodC').value=f.c||0;$('foodF').value=f.fat||0;window.scrollTo(0,0)}
+function del(key,id){if(confirm('Excluir este registro?')){db[key]=db[key].filter(x=>x.id!==id);persist()}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='meu-controle-diario-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.settings||!Array.isArray(x.foods)||!Array.isArray(x.water))throw 0;db=x;db.settings={...defaults,...db.settings};persist();alert('Backup restaurado!')}catch(_){alert('Arquivo de backup inválido.')}};r.readAsText(f)}
+function clearToday(){if(confirm('Apagar todas as refeições e registros de água de hoje?')){db.foods=db.foods.filter(x=>x.date!==today());db.water=db.water.filter(x=>x.date!==today());persist()}}
+$('foodDate').value=today();$('weightDate').value=today();
+Object.entries({goalKcal:'goalKcal',goalWater:'goalWater',goalP:'goalP',goalC:'goalC',goalF:'goalF',goalWeightInput:'goalWeight'}).forEach(([id,k])=>$(id).value=db.settings[k]||'');
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
